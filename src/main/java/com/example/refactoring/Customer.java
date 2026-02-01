@@ -1,18 +1,18 @@
 package com.example.refactoring;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Customer {
     private String name;
-    private List<Rental> rentals = new ArrayList<>();
+    private Rentals rentals = new Rentals();
 
     public Customer(String name) {
         this.name = name;
     }
 
-    public void addRental(Rental arg) {
-        rentals.add(arg);
+    public void addRental(Rental rental) {
+        rentals.add(rental);
     }
 
     public String getName() {
@@ -20,17 +20,15 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
         String result = "Rental Record for " + getName() + "\n";
         for (Rental rental : rentals) {
             double thisAmount = rental.amount();
             // show figures for this Rental
             result += "\t" + rental.getMovie().getTitle() + "\t" +
                     String.valueOf(thisAmount) + "\n";
-            totalAmount += thisAmount;
         }
         // add footer lines result
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
+        result += "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
         return result;
     }
 }
@@ -92,5 +90,15 @@ class Rental {
 
     public double amount() {
         return movie.amount(daysRented);
+    }
+}
+
+class Rentals extends ArrayList<Rental> {
+    public double totalCharge() {
+        double result = 0;
+        for (Rental rental : this) {
+            result += rental.amount();
+        }
+        return result;
     }
 }
