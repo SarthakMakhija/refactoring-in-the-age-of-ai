@@ -23,7 +23,7 @@ public class Customer {
         double totalAmount = 0;
         String result = "Rental Record for " + getName() + "\n";
         for (Rental rental : rentals) {
-            double thisAmount = amount(rental);
+            double thisAmount = rental.amount();
             // show figures for this Rental
             result += "\t" + rental.getMovie().getTitle() + "\t" +
                     String.valueOf(thisAmount) + "\n";
@@ -32,23 +32,6 @@ public class Customer {
         // add footer lines result
         result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
         return result;
-    }
-
-    private double amount(Rental rental) {
-        double amount = 0;
-        switch (rental.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                amount += 2;
-                if (rental.getDaysRented() < 2)
-                    amount += (rental.getDaysRented() - 2) * 1.5;
-                break;
-            case Movie.CHILDRENS:
-                amount += 1.5;
-                if (rental.getDaysRented() < 3)
-                    amount += (rental.getDaysRented() - 3) * 1.5;
-                break;
-        }
-        return amount;
     }
 }
 
@@ -71,6 +54,23 @@ class Movie {
     public int getPriceCode() {
         return priceCode;
     }
+
+    public double amount(int daysRented) {
+        double amount = 0;
+        switch (priceCode) {
+            case REGULAR:
+                amount += 2;
+                if (daysRented < 2)
+                    amount += (daysRented - 2) * 1.5;
+                break;
+            case CHILDRENS:
+                amount += 1.5;
+                if (daysRented < 3)
+                    amount += (daysRented - 3) * 1.5;
+                break;
+        }
+        return amount;
+    }
 }
 
 class Rental {
@@ -88,5 +88,9 @@ class Rental {
 
     public Movie getMovie() {
         return movie;
+    }
+
+    public double amount() {
+        return movie.amount(daysRented);
     }
 }
