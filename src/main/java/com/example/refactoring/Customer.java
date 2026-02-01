@@ -62,8 +62,8 @@ class Rental {
         this.daysRented = daysRented;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public String movieTitle() {
+        return movie.getTitle();
     }
 
     public double amount() {
@@ -101,7 +101,7 @@ class TextStatement {
     private String body() {
         String result = "";
         for (Rental rental : rentals) {
-            result += "\t" + rental.getMovie().getTitle() + "\t" +
+            result += "\t" + rental.movieTitle() + "\t" +
                     String.valueOf(rental.amount()) + "\n";
         }
         return result;
