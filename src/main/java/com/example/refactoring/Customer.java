@@ -18,15 +18,15 @@ public class Customer {
         return name;
     }
 
-    public String statement() {
-        return header() + body() + footer();
+    public String textStatement() {
+        return textHeader() + textBody() + textFooter();
     }
 
-    private String header() {
+    private String textHeader() {
         return "Rental Record for " + getName() + "\n";
     }
 
-    private String body() {
+    private String textBody() {
         String result = "";
         for (Rental rental : rentals) {
             result += "\t" + rental.getMovie().getTitle() + "\t" +
@@ -35,7 +35,7 @@ public class Customer {
         return result;
     }
 
-    private String footer() {
+    private String textFooter() {
         return "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
     }
 }
