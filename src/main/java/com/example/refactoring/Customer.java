@@ -1,0 +1,86 @@
+package com.example.refactoring;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Customer {
+    private String name;
+    private List<Rental> rentals = new ArrayList<>();
+
+    public Customer(String name) {
+        this.name = name;
+    }
+    public void addRental(Rental arg) {
+        rentals.add(arg);
+    }
+    public String getName() {
+        return name;
+    }
+    public String statement() {
+        double totalAmount = 0;
+        String result = "Rental Record for " + getName() + "\n";
+        for (Rental each : rentals) {
+            double thisAmount = 0;
+
+            //determine the amounts for each line
+            switch (each.getMovie().getPriceCode()) {
+                case Movie.REGULAR:
+                    thisAmount += 2;
+                    if (each.getDaysRented() < 2)
+                        thisAmount += (each.getDaysRented() - 2) * 1.5;
+                    break;
+                case Movie.CHILDRENS:
+                    thisAmount += 1.5;
+                    if (each.getDaysRented() < 3)
+                        thisAmount += (each.getDaysRented() - 3) * 1.5;
+                    break;
+            }
+            //show figures for this Rental
+            result += "\t" + each.getMovie().getTitle() + "\t" +
+                    String.valueOf(thisAmount) + "\n";
+            totalAmount += thisAmount;
+        }
+        //add footer lines result
+        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
+        return result;
+    }
+}
+
+class Movie {
+    public static final int CHILDRENS = 2;
+    public static final int REGULAR = 0;
+
+    private String title;
+    private int priceCode;
+
+    public Movie(String title, int priceCode) {
+        this.title = title;
+        this.priceCode = priceCode;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getPriceCode() {
+        return priceCode;
+    }
+}
+
+class Rental {
+    private int daysRented;
+    private Movie movie;
+
+    public Rental(Movie movie, int daysRented){
+        this.movie = movie;
+        this.daysRented = daysRented;
+    }
+
+    public int getDaysRented() {
+        return daysRented;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+}
