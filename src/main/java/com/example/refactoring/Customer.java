@@ -19,24 +19,7 @@ public class Customer {
     }
 
     public String textStatement() {
-        return textHeader() + textBody() + textFooter();
-    }
-
-    private String textHeader() {
-        return "Rental Record for " + getName() + "\n";
-    }
-
-    private String textBody() {
-        String result = "";
-        for (Rental rental : rentals) {
-            result += "\t" + rental.getMovie().getTitle() + "\t" +
-                    String.valueOf(rental.amount()) + "\n";
-        }
-        return result;
-    }
-
-    private String textFooter() {
-        return "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
+        return new TextStatement(name, rentals).get();
     }
 }
 
@@ -107,5 +90,36 @@ class Rentals extends ArrayList<Rental> {
             result += rental.amount();
         }
         return result;
+    }
+}
+
+class TextStatement {
+    private String name;
+    private Rentals rentals;
+
+    public TextStatement(String name, Rentals rentals) {
+        this.name = name;
+        this.rentals = rentals;
+    }
+
+    public String get() {
+        return header() + body() + footer();
+    }
+
+    private String header() {
+        return "Rental Record for " + name + "\n";
+    }
+
+    private String body() {
+        String result = "";
+        for (Rental rental : rentals) {
+            result += "\t" + rental.getMovie().getTitle() + "\t" +
+                    String.valueOf(rental.amount()) + "\n";
+        }
+        return result;
+    }
+
+    private String footer() {
+        return "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
     }
 }
