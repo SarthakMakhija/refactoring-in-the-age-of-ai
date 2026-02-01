@@ -14,10 +14,6 @@ public class Customer {
         rentals.add(rental);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String textStatement() {
         return new TextStatement(name, rentals).get();
     }
@@ -37,10 +33,6 @@ class Movie {
 
     public String getTitle() {
         return title;
-    }
-
-    public int getPriceCode() {
-        return priceCode;
     }
 
     public double amount(int daysRented) {
@@ -68,10 +60,6 @@ class Rental {
     public Rental(Movie movie, int daysRented) {
         this.movie = movie;
         this.daysRented = daysRented;
-    }
-
-    public int getDaysRented() {
-        return daysRented;
     }
 
     public Movie getMovie() {
