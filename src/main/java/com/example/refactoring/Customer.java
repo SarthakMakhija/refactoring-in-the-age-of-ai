@@ -62,12 +62,12 @@ class Rental {
         this.daysRented = daysRented;
     }
 
-    public String movieTitle() {
-        return movie.getTitle();
-    }
-
     public double amount() {
         return movie.amount(daysRented);
+    }
+
+    public Figure figure() {
+        return new Figure(movie.getTitle(), amount());
     }
 }
 
@@ -101,13 +101,32 @@ class TextStatement {
     private String body() {
         String result = "";
         for (Rental rental : rentals) {
-            result += "\t" + rental.movieTitle() + "\t" +
-                    String.valueOf(rental.amount()) + "\n";
+            Figure figure = rental.figure();
+            result += "\t" + figure.getMovieTitle() + "\t" +
+                    String.valueOf(figure.getAmount()) + "\n";
         }
         return result;
     }
 
     private String footer() {
         return "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
+    }
+}
+
+class Figure {
+    private String movieTitle;
+    private double amount;
+
+    public Figure(String movieTitle, double amount) {
+        this.movieTitle = movieTitle;
+        this.amount = amount;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public double getAmount() {
+        return amount;
     }
 }
