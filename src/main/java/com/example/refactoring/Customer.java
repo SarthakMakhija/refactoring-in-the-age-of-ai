@@ -1,7 +1,6 @@
 package com.example.refactoring;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 public class Customer {
     private String name;
@@ -20,16 +19,24 @@ public class Customer {
     }
 
     public String statement() {
-        String result = "Rental Record for " + getName() + "\n";
+        return header() + body() + footer();
+    }
+
+    private String header() {
+        return "Rental Record for " + getName() + "\n";
+    }
+
+    private String body() {
+        String result = "";
         for (Rental rental : rentals) {
-            double thisAmount = rental.amount();
-            // show figures for this Rental
             result += "\t" + rental.getMovie().getTitle() + "\t" +
-                    String.valueOf(thisAmount) + "\n";
+                    String.valueOf(rental.amount()) + "\n";
         }
-        // add footer lines result
-        result += "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
         return result;
+    }
+
+    private String footer() {
+        return "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
     }
 }
 
