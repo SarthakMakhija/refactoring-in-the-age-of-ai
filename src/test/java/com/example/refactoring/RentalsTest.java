@@ -6,23 +6,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RentalsTest {
 
     @Test
-    public void totalChargeWithNoRentals() {
+    public void totalAmountWithNoRentals() {
         Rentals rentals = new Rentals();
-        assertEquals(0.0, rentals.totalCharge());
+        assertEquals(0.0, rentals.totalAmount());
     }
 
     @Test
-    public void totalChargeWithSingleRental() {
+    public void totalAmountWithSingleRental() {
         Rentals rentals = new Rentals();
         rentals.add(new Rental(new Movie("Regular", Movie.REGULAR), 1));
-        assertEquals(0.5, rentals.totalCharge());
+        assertEquals(0.5, rentals.totalAmount());
     }
 
     @Test
-    public void totalChargeWithMultipleRentals() {
+    public void totalAmountWithMultipleRentals() {
         Rentals rentals = new Rentals();
         rentals.add(new Rental(new Movie("Regular", Movie.REGULAR), 1));
         rentals.add(new Rental(new Movie("Children", Movie.CHILDRENS), 4));
-        assertEquals(2.0, rentals.totalCharge());
+        assertEquals(2.0, rentals.totalAmount());
     }
 }

@@ -72,7 +72,7 @@ class Rental {
 }
 
 class Rentals extends ArrayList<Rental> {
-    public double totalCharge() {
+    public double totalAmount() {
         double result = 0;
         for (Rental rental : this) {
             result += rental.amount();
@@ -109,7 +109,7 @@ class TextStatement {
     }
 
     private String footer() {
-        return "Amount owed is " + String.valueOf(rentals.totalCharge()) + "\n";
+        return "Amount owed is " + String.valueOf(rentals.totalAmount()) + "\n";
     }
 }
 
